@@ -1,9 +1,28 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import { setBooks } from './actions/books';
 
-function App() {
-  return (
-    <div className="container" />
-  );
+function App(props) {
+    const {books} = props.books;
+    const {setBooks} = props;
+    const newBooks = [
+        {
+            id: 0,
+            title: 'Shopping card!'
+        }
+    ];
+    return (
+        <>
+            <div>{books[0].title}</div>
+            <button onClick={() => setBooks(newBooks)}>Change book!</button>
+        </>
+    );
 }
 
-export default App;
+const mapStateToProps = state => ({...state});
+const mapDispatchToProps = dispatch => ({
+    setBooks: books => dispatch(setBooks(books))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
