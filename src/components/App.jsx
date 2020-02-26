@@ -1,14 +1,12 @@
 import React, { useEffect} from 'react';
-import {connect} from 'react-redux';
 import {Container, Card} from 'semantic-ui-react';
 
-import { setBooks } from './actions/books';
-import MenuComponent from "./components/MenuComponent";
-import BookCard from "./components/BookCard";
-import './app.css';
+import MenuComponent from "./MenuComponent";
+import BookCard from "./BookCard";
+import Filter from "./Filter";
+import '../app.css';
 
 function App(props) {
-    //const {books} = props || [];
     const books = props.books;
     const isReady = props.isReady;
     const {setBooks} = props;
@@ -25,6 +23,7 @@ function App(props) {
     return (
         <Container>
             <MenuComponent />
+            <Filter />
             <Card.Group itemsPerRow={4}>
                 {
                     !books ? 'Загрузка...' : books.map(book => (
@@ -36,15 +35,6 @@ function App(props) {
     );
 }
 
-const mapStateToProps = ({books}) => (
-    {
-        books: books.items,
-        isReady: books.isReady
-    }
-    );
-const mapDispatchToProps = dispatch => ({
-    setBooks: books => dispatch(setBooks(books))
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
 
